@@ -239,7 +239,8 @@ start_dialog = Dialog(
               '🙏 Желаем вам наслаждения и умиротворения в медитации! 🙏', when='new_user'),
         Const('Ты не подписан на этот канал: https://t.me/fairytaleai\n Попишись, заново нажми /start, и тогда сможешь '
               'поиграть', when='not_subscribe'),
-        WebApp(Const('Играть'), Const('https://a97e-194-87-199-70.ngrok-free.app')),
+        WebApp(Const('Играть'), Const('https://a97e-194-87-199-70.ngrok-free.app', when='new_user')),
+        WebApp(Const('Играть'), Const('https://a97e-194-87-199-70.ngrok-free.app', when='admin')),
         Button(Const('Заявки'), id='zayavki', when='admin', on_click=switch_to_get_requests),
         getter=get_user,
         state=StartSG.start
