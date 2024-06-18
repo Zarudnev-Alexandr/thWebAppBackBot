@@ -240,11 +240,11 @@ start_dialog = Dialog(
         Const('Ты не подписан на этот канал: https://t.me/Harmonara\n Попишись, заново нажми /start, и тогда сможешь '
               'поиграть', when='not_subscribe'),
         Group(
-            WebApp(Const('Играть'), Const('https://a97e-194-87-199-70.ngrok-free.app')),
+            WebApp(Const('Играть'), Const('https://zarudnev-alexandr.github.io/tgCapybaraFront/')),
             when='admin'
         ),
         Group(
-            WebApp(Const('Играть'), Const('https://a97e-194-87-199-70.ngrok-free.app')),
+            WebApp(Const('Играть'), Const('https://zarudnev-alexandr.github.io/tgCapybaraFront/')),
             when='new_user'
         ),
         Button(Const('Заявки'), id='zayavki', when='admin', on_click=switch_to_get_requests),
