@@ -42,7 +42,7 @@ async def get_user(event_from_user: User, dialog_manager: DialogManager, **kwarg
     user_channel_status = await bot1.get_chat_member(chat_id='@fairytaleai', user_id=event_from_user.id)
     status = user_channel_status.status.__dict__
     if status['_value_'] not in ['creator', 'member']:
-        return {'not_subscribe': True}
+        return {'not_subscribe': True, 'username': event_from_user.username,}
 
     try:
         user_response = requests.get(f'{API_URL}users/{tg_id}')
