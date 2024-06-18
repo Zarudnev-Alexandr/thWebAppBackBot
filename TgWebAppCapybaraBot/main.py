@@ -10,7 +10,7 @@ from aiogram.types import Message, User, CallbackQuery
 from aiogram.utils.callback_answer import CallbackAnswerMiddleware
 from aiogram_dialog import DialogManager, StartMode, setup_dialogs, Dialog, Window
 from aiogram_dialog.widgets.input import TextInput, MessageInput, ManagedTextInput
-from aiogram_dialog.widgets.kbd import Url, WebApp, Button, ScrollingGroup, Select, Back, Row, Next
+from aiogram_dialog.widgets.kbd import Url, WebApp, Button, ScrollingGroup, Select, Back, Row, Next, Group
 from aiogram_dialog.widgets.text import Const, Format
 from environs import Env
 
@@ -239,8 +239,14 @@ start_dialog = Dialog(
               '🙏 Желаем вам наслаждения и умиротворения в медитации! 🙏', when='new_user'),
         Const('Ты не подписан на этот канал: https://t.me/fairytaleai\n Попишись, заново нажми /start, и тогда сможешь '
               'поиграть', when='not_subscribe'),
-        WebApp(Const('Играть'), Const('https://a97e-194-87-199-70.ngrok-free.app'), when='admin'),
-        WebApp(Const('Играть'), Const('https://a97e-194-87-199-70.ngrok-free.app'), when='new_user'),
+        Group(
+            WebApp(Const('Играть'), Const('https://a97e-194-87-199-70.ngrok-free.app')),
+            when='admin'
+        ),
+        Group(
+            WebApp(Const('Играть'), Const('https://a97e-194-87-199-70.ngrok-free.app')),
+            when='new_user'
+        ),
         Button(Const('Заявки'), id='zayavki', when='admin', on_click=switch_to_get_requests),
         getter=get_user,
         state=StartSG.start
