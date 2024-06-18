@@ -39,7 +39,7 @@ class AllRequestsSG(StatesGroup):
 async def get_user(event_from_user: User, dialog_manager: DialogManager, **kwargs):
     tg_id = event_from_user.id
     bot1 = dialog_manager.middleware_data['bot']
-    user_channel_status = await bot1.get_chat_member(chat_id='@fairytaleai', user_id=event_from_user.id)
+    user_channel_status = await bot1.get_chat_member(chat_id='@Harmonara', user_id=event_from_user.id)
     status = user_channel_status.status.__dict__
     if status['_value_'] not in ['creator', 'member']:
         return {'not_subscribe': True, 'username': event_from_user.username,}
