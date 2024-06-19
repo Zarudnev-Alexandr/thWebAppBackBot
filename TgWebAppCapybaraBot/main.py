@@ -14,13 +14,16 @@ from aiogram_dialog.widgets.kbd import Url, WebApp, Button, ScrollingGroup, Sele
 from aiogram_dialog.widgets.text import Const, Format
 from environs import Env
 
+from aiogram.client.session.aiohttp import AiohttpSession
+
 env = Env()
 env.read_env()
 
 BOT_TOKEN = env('BOT_TOKEN')
 API_URL = env('API_URL')
 
-bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+session = AiohttpSession(timeout=30)
+bot = Bot(token=BOT_TOKEN, session=session, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 dp = Dispatcher()
 
 
