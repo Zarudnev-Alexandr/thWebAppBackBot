@@ -13,8 +13,7 @@ from aiogram_dialog.widgets.input import TextInput, MessageInput, ManagedTextInp
 from aiogram_dialog.widgets.kbd import Url, WebApp, Button, ScrollingGroup, Select, Back, Row, Next, Group
 from aiogram_dialog.widgets.text import Const, Format
 from environs import Env
-
-from aiogram.client.session.aiohttp import AiohttpSession
+from aiogram.filters import Command
 
 env = Env()
 env.read_env()
@@ -22,8 +21,7 @@ env.read_env()
 BOT_TOKEN = env('BOT_TOKEN')
 API_URL = env('API_URL')
 
-session = AiohttpSession(timeout=30)
-bot = Bot(token=BOT_TOKEN, session=session, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
+bot = Bot(token=BOT_TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
 dp = Dispatcher()
 
 
@@ -215,6 +213,13 @@ async def error_film_handler(
 @dp.message(CommandStart())
 async def command_start_process(message: Message, dialog_manager: DialogManager):
     await dialog_manager.start(state=StartSG.start, mode=StartMode.RESET_STACK)
+
+
+@dp.message(Command("hello"))
+async def cmd_hello(message: Message):
+    await message.answer(
+        f"test123",
+    )
 
 
 start_dialog = Dialog(
