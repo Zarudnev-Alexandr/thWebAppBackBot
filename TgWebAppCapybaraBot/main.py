@@ -13,7 +13,6 @@ from aiogram_dialog.widgets.input import TextInput, MessageInput, ManagedTextInp
 from aiogram_dialog.widgets.kbd import Url, WebApp, Button, ScrollingGroup, Select, Back, Row, Next, Group
 from aiogram_dialog.widgets.text import Const, Format
 from environs import Env
-from aiogram.filters import Command
 
 env = Env()
 env.read_env()
@@ -215,13 +214,6 @@ async def command_start_process(message: Message, dialog_manager: DialogManager)
     await dialog_manager.start(state=StartSG.start, mode=StartMode.RESET_STACK)
 
 
-@dp.message(Command("hello"))
-async def cmd_hello(message: Message):
-    await message.answer(
-        f"test123",
-    )
-
-
 start_dialog = Dialog(
     Window(
         # Format('Привет, {username}!'),
@@ -354,4 +346,4 @@ dp.shutdown.register(on_shutdown)
 # dp.update.middleware(DataBaseSession(session_pool=session_maker))
 dp.callback_query.middleware(CallbackAnswerMiddleware())
 
-dp.run_polling(bot, handle_as_tasks=False)
+dp.run_polling(bot)
