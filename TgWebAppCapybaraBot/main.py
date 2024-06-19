@@ -354,4 +354,4 @@ dp.shutdown.register(on_shutdown)
 # dp.update.middleware(DataBaseSession(session_pool=session_maker))
 dp.callback_query.middleware(CallbackAnswerMiddleware())
 
-dp.run_polling(bot)
+dp.run_polling(bot, handle_as_tasks=False)
