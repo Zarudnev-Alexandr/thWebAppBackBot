@@ -286,7 +286,7 @@ watch_all_requests_dialog = Dialog(
         state=AllRequestsSG.request_info
     ),
     Window(
-        Const(text='Введи nft'),
+        Const(text='Введи хэш'),
         TextInput(
             id='nft_input',
             type_factory=name_check,
@@ -301,7 +301,7 @@ watch_all_requests_dialog = Dialog(
         state=AllRequestsSG.enter_nft,
     ),
     Window(
-        Const(text='Введи ссылку на нфт в магазине'),
+        Const(text='Введи ссылку на нфт'),
         TextInput(
             id='link_input',
             type_factory=name_check,
@@ -316,7 +316,7 @@ watch_all_requests_dialog = Dialog(
         state=AllRequestsSG.enter_link,
     ),
     Window(
-        Format(text='Ссылка: {nft_shop_link}\nТокен: {nft_token} Успешно добавлена'),
+        Format(text='Ссылка: {nft_shop_link}\nХэш: {nft_token} Успешно добавлена'),
         Button(Const('📃В главное меню'), id='to_main_menu', on_click=switch_to_main_menu),
         getter=accept_nft_link,
         state=AllRequestsSG.accept
