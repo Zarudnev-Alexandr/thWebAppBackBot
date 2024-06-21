@@ -94,7 +94,7 @@ async def upgrade(tg_id: int, session: AsyncSession = Depends(get_session)):
         raise HTTPException(status_code=400, detail="Максимальный уровень")
 
     if not user.is_banned:
-        current_time = datetime.utcnow()
+        current_time = datetime.utcnow() + timedelta(hours=3)
         if user.last_upgrade and current_time - user.last_upgrade < timedelta(days=1):
             raise HTTPException(status_code=403, detail="Уровень можно повысить только раз в день")
 
