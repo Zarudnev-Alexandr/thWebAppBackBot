@@ -1,5 +1,4 @@
 from datetime import datetime, timedelta
-import pytz
 
 from environs import Env
 from fastapi import APIRouter, Depends, HTTPException
@@ -95,18 +94,12 @@ async def upgrade(tg_id: int, session: AsyncSession = Depends(get_session)):
         raise HTTPException(status_code=400, detail="Максимальный уровень")
 
     if not user.is_banned:
-        # Преобразование времени сервера в московское время
-        moscow_tz = pytz.timezone('Europe/Moscow')
-        current_time_utc = datetime.utcnow().replace(tzinfo=pytz.utc)
-        current_time_moscow = current_time_utc.astimezone(moscow_tz)
-
-        if user.last_upgrade:
-            last_upgrade_moscow = user.last_upgrade.replace(tzinfo=pytz.utc).astimezone(moscow_tz)
-            if current_time_moscow - last_upgrade_moscow < timedelta(days=1):
-                raise HTTPException(status_code=403, detail="Уровень можно повысить только раз в день")
+        current_time = datetime.utcnow()
+        if user.last_upgrade and current_time - user.last_upgrade < timedelta(days=1):
+            raise HTTPException(status_code=403, detail="Уровень можно повысить только раз в день")
 
         new_user_lvl = await upgrade_lvl(session=session, user=user)
-        user.last_upgrade = current_time_utc  # Хранение времени в UTC
+        user.last_upgrade = current_time
 
         await session.commit()
         return new_user_lvl
